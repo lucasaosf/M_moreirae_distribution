@@ -31,7 +31,7 @@ Se você utilizar este script ou os dados consolidados do GBIF em seus estudos o
 ```bibtex
 @misc{ferreira2026melanophryniscus,
   title={Distribuição de Melanophryniscus moreirae a partir de dados do GBIF},
-  author={Lucas José Alves de Oliveira Simões Ferreira},
+  author={Lucas Aosf},
   year={2026},
   publisher={GitHub},
   journal={GitHub repository},
