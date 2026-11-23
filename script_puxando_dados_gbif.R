@@ -2,28 +2,33 @@
 # Lucas Aosf
 # Thu May  2 18:04:07 2024 ------------------------------
 
-getwd()
-setwd("C:/Users/lucas/Downloads/M. moreirae mapa")
-
-# carregando o pacote para pegar dados do GBIF
-
+# Garantir pacote rgbif instalado de forma segura
+if (!requireNamespace("rgbif", quietly = TRUE)) {
+  install.packages("rgbif", dependencies = TRUE)
+}
 library(rgbif)
 
-# Pegando dados específicos da sp
+# Pasta de saida configuravel (usa pasta atual do projeto de forma portavel)
+pasta_saida <- file.path(getwd(), "dados")
+if (!dir.exists(pasta_saida)) dir.create(pasta_saida, recursive = TRUE)
 
+arquivo_saida <- file.path(pasta_saida, "dados_gbif.csv")
+
+# Pegando dados especificos da especie
 dat <- occ_search(scientificName = "Melanophryniscus moreirae", limit = 1000)$data
 
-nrow(dat)  # checando o número de registros
-head(dat)  # checando o dado
-
-# Escrevendo os dados em um arquivo .csv
-write.csv(dat, "dados_gbif.csv", row.names = FALSE)
-
-# Verificando se o arquivo foi criado
-if (file.exists("dados_gbif.csv")) {
-  print("Arquivo .csv criado com sucesso.")
+if (!is.null(dat) && nrow(dat) > 0) {
+  message("Registros encontrados: ", nrow(dat))
+  # Escrevendo os dados em um arquivo .csv
+  write.csv(dat, arquivo_saida, row.names = FALSE)
+  
+  if (file.exists(arquivo_saida)) {
+    message("✅ Arquivo .csv criado com sucesso em: ", arquivo_saida)
+  } else {
+    warning("Houve um problema ao criar o arquivo .csv.")
+  }
 } else {
-  print("Houve um problema ao criar o arquivo .csv.")
+  warning("Nenhum registro encontrado no GBIF para a especie consultada.")
 }
 
 # FIM

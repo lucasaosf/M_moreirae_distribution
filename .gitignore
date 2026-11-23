@@ -47,3 +47,16 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+
+# Dados baixados e planilhas GBIF
+*.csv
+*.xlsx
+dados/
+data/
+
+# Variaveis de ambiente e sistema
+.env
+*.log
+.DS_Store
+Thumbs.db
+
